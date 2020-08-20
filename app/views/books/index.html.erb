@@ -1,29 +1,42 @@
-<header>
-   <h1 class="headline">
-    <%= link_to "CARAVAN", books_path %>
-    </h1>
-  <a herf="https://bookers-level1.herokuapp.com/books">Books</a>
-</h1>
-</header>
-
 <body>
-<table border="">
-　<tr>
-　　<th>Title</th>
-　　<th>Body</th>
-   <th></th>
-   <th></th>
-   <th></th>
-　</tr>
-　<tr>
-　　<td>xxxxxxx</td>
-　　<td>xxxxxxx</td>
-   <td><a class="show" href="/books/">Show</a></td>
-   <td><a class="edit" href="/books/">Edit</a></td>
-   <td><a data-confirm="Are you sure?" class="destroy" rel="nofollow" data-method="delete" href="/books/">Destroy</a></td>
-　</tr>
+  <h1>Books</h1>
 
+<table>
+ <thead>
+　 <tr>
+　　 <th>Title</th>
+　　 <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+　 </tr>
+ </thead>
+
+ <tbody>
+ <% @books.each do |book| %>
+  <tr>
+　　 <td><%= book.title %></td>
+　　 <td><%= book.body %></td>
+    <td></div><%= link_to "Show", book_path(book.id) %></div></td>
+    <td></div><%= link_to "Edit", edit_book_path(book.id) %></div></td>
+    <td></div><%= link_to "Destroy", books_path(book.id),  method: :delete, data:{ confirm: 'Are you sure?' }, class:"destroy" %></div>
+    </td>
+　 </tr>
+ <% end %>
+ </tbody>
 </table>
 
+<h2>New book</h2>
+<%= form_for(@book) do |f| %>
+
+<h4>Title</h4>
+<%= f.text_field :title %>
+
+<h4>Body</h4>
+<%= f.text_area :body %><br>
+
+<%= f.submit 'Create Book' %>
+
+<% end %>
 
 </body>
